@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}
+AfriMigrate AI · Trusted Digital Mobility
+{% endblock %}
+
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="container py-5">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-7">
+
+                <div class="eyebrow">
+                    AFRICAN DIGITAL PUBLIC INFRASTRUCTURE · DEMONSTRATOR
+                </div>
+
+                <h1>
+                    Trusted digital services for
+                    <span>African mobility.</span>
+                </h1>
+
+                <p class="lead">
+
+                    AfriMigrate AI combines responsible artificial intelligence,
+                    trusted verification and policy intelligence to make
+                    migration-related public services easier to understand,
+                    verify and improve.
+
+                </p>
+
+
+                <div class="d-flex flex-wrap gap-3 mt-4">
+
+                    <a
+                        class="btn btn-primary btn-lg"
+                        href="{{ url_for('assistant') }}"
+                    >
+                        Try AI Assistant
+                    </a>
+
+                    <a
+                        class="btn btn-outline-dark btn-lg"
+                        href="{{ url_for('readiness') }}"
+                    >
+                        Check Readiness
+                    </a>
+
+                </div>
+
+
+                <div class="hero-note mt-4">
+
+                    Built for demonstration using synthetic data.
+                    Legal decisions remain with authorized institutions.
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5">
+
+                <div class="hero-card">
+
+                    <div class="shield">
+                        ✓
+                    </div>
+
+                    <h3 class="mt-3">
+                        Trust by design
+                    </h3>
+
+                    <p>
+
+                        Minimum-necessary disclosure, human review,
+                        controlled knowledge and privacy-aware verification.
+
+                    </p>
+
+
+                    <div class="mini-flow">
+
+                        <span>Migrant</span>
+
+                        <b>→</b>
+
+                        <span>AI</span>
+
+                        <b>→</b>
+
+                        <span>Verification</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="container py-5">
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            ONE PLATFORM · MULTIPLE USERS
+        </div>
+
+        <h2>
+            Designed around real service journeys
+        </h2>
+
+        <p>
+            AfriMigrate AI connects the migrant experience,
+            authorized verification and policy intelligence.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <a
+                class="feature-card"
+                href="{{ url_for('assistant') }}"
+            >
+
+                <div class="icon">
+                    👤
+                </div>
+
+                <h4>
+                    Migrant / Traveller
+                </h4>
+
+                <p>
+                    Understand documentation requirements,
+                    ask questions and check readiness.
+                </p>
+
+                <span>
+                    Explore →
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <a
+                class="feature-card"
+                href="{{ url_for('officer') }}"
+            >
+
+                <div class="icon">
+                    🛡️
+                </div>
+
+                <h4>
+                    Authorized Officer
+                </h4>
+
+                <p>
+                    Verify a digital credential while viewing
+                    only the information necessary for the task.
+                </p>
+
+                <span>
+                    Verify →
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <a
+                class="feature-card"
+                href="{{ url_for('policy') }}"
+            >
+
+                <div class="icon">
+                    📊
+                </div>
+
+                <h4>
+                    Policy & Governance
+                </h4>
+
+                <p>
+                    Use aggregated information to identify
+                    documentation gaps and service bottlenecks.
+                </p>
+
+                <span>
+                    Analyze →
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="container pb-5">
+
+    <div class="trust-panel">
+
+        <div>
+
+            <div class="eyebrow">
+                THE GOVERNANCE LAYER
+            </div>
+
+            <h2>
+                AI that explains, verifies and knows when to defer.
+            </h2>
+
+        </div>
+
+
+        <div class="trust-points">
+
+            <span>🔐 Privacy</span>
+
+            <span>🤝 Human review</span>
+
+            <span>🌍 Interoperability</span>
+
+            <span>📚 Traceable rules</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

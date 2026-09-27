@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}
+Privacy Lens · AfriMigrate AI
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            RESPONSIBLE DIGITAL GOVERNANCE
+        </div>
+
+        <h1>
+            Privacy Lens
+        </h1>
+
+        <p>
+
+            AfriMigrate AI demonstrates privacy-by-design
+            through minimum-necessary disclosure.
+
+        </p>
+
+    </div>
+
+
+    <div class="panel mx-auto max-panel">
+
+
+        <h4>
+            Information requested for credential verification
+        </h4>
+
+
+        <p class="text-secondary">
+
+            The prototype separates information required
+            for verification from information that does not
+            need to be disclosed for the task.
+
+        </p>
+
+
+        <div class="privacy-list">
+
+
+            <div class="allowed">
+
+                ✓
+
+                <span>
+                    Credential validity
+                </span>
+
+                <b>
+                    SHARE
+                </b>
+
+            </div>
+
+
+            <div class="allowed">
+
+                ✓
+
+                <span>
+                    Purpose
+                </span>
+
+                <b>
+                    SHARE
+                </b>
+
+            </div>
+
+
+            <div class="allowed">
+
+                ✓
+
+                <span>
+                    Country
+                </span>
+
+                <b>
+                    SHARE
+                </b>
+
+            </div>
+
+
+            <div class="allowed">
+
+                ✓
+
+                <span>
+                    Expiry
+                </span>
+
+                <b>
+                    SHARE
+                </b>
+
+            </div>
+
+
+            <div class="blocked">
+
+                ✕
+
+                <span>
+                    Full passport number
+                </span>
+
+                <b>
+                    WITHHOLD
+                </b>
+
+            </div>
+
+
+            <div class="blocked">
+
+                ✕
+
+                <span>
+                    Home address
+                </span>
+
+                <b>
+                    WITHHOLD
+                </b>
+
+            </div>
+
+
+            <div class="blocked">
+
+                ✕
+
+                <span>
+                    Unnecessary private records
+                </span>
+
+                <b>
+                    WITHHOLD
+                </b>
+
+            </div>
+
+        </div>
+
+
+        <div class="privacy-callout mt-4">
+
+            <b>
+                Design principle:
+            </b>
+
+            disclose only what is necessary for the
+            authorized verification task, with appropriate
+            access controls and auditability in a production deployment.
+
+        </div>
+
+
+        <div class="row g-4 mt-4">
+
+
+            <div class="col-md-4">
+
+                <h5>
+                    Purpose limitation
+                </h5>
+
+                <p class="text-secondary">
+
+                    Information should be used for the
+                    authorized purpose for which it was requested.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <h5>
+                    Human oversight
+                </h5>
+
+                <p class="text-secondary">
+
+                    AI-generated guidance should not replace
+                    authorized institutional decisions.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <h5>
+                    Auditability
+                </h5>
+
+                <p class="text-secondary">
+
+                    A production implementation should maintain
+                    appropriate access and verification records.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="alert alert-light mx-auto max-panel mt-4">
+
+        <b>
+            Prototype notice:
+        </b>
+
+        This privacy demonstration is conceptual.
+        Production deployment would require appropriate
+        legal, institutional, security and data-governance controls.
+
+    </div>
+
+</div>
+
+{% endblock %}

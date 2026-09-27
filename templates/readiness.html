@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+
+{% block title %}
+Document Readiness · AfriMigrate AI
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            MIGRANT / TRAVELLER
+        </div>
+
+        <h1>
+            Document Readiness Check
+        </h1>
+
+        <p>
+            Check a demonstration journey before approaching
+            an authorized service.
+        </p>
+
+    </div>
+
+
+    <div class="panel mx-auto max-panel">
+
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+
+                <label>
+                    Nationality
+                </label>
+
+                <select
+                    id="nationality"
+                    class="form-select"
+                >
+
+                    <option>Uganda</option>
+                    <option>Tanzania</option>
+                    <option>Rwanda</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label>
+                    Destination
+                </label>
+
+                <select
+                    id="destination"
+                    class="form-select"
+                >
+
+                    <option>Kenya</option>
+                    <option>Uganda</option>
+                    <option>Tanzania</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label>
+                    Purpose
+                </label>
+
+                <select
+                    id="purpose"
+                    class="form-select"
+                >
+
+                    <option>Employment</option>
+                    <option>Study</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <hr class="my-4">
+
+
+        <h5>
+            Documents you have
+        </h5>
+
+
+        <div class="form-check mt-3">
+
+            <input
+                class="form-check-input"
+                id="passport"
+                type="checkbox"
+                checked
+            >
+
+            <label
+                class="form-check-label"
+                for="passport"
+            >
+                Travel document / passport
+            </label>
+
+        </div>
+
+
+        <div class="form-check mt-3">
+
+            <input
+                class="form-check-input"
+                id="employment"
+                type="checkbox"
+                checked
+            >
+
+            <label
+                class="form-check-label"
+                for="employment"
+            >
+                Employment documentation
+            </label>
+
+        </div>
+
+
+        <div class="form-check mt-3">
+
+            <input
+                class="form-check-input"
+                id="supporting"
+                type="checkbox"
+            >
+
+            <label
+                class="form-check-label"
+                for="supporting"
+            >
+                Supporting documentation
+            </label>
+
+        </div>
+
+
+        <button
+            id="check"
+            class="btn btn-primary mt-4"
+        >
+            Check readiness
+        </button>
+
+
+        <div
+            id="result"
+            class="mt-4"
+        ></div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+document.getElementById(
+    "check"
+).onclick = async function () {
+
+
+    const response =
+        await fetch(
+            "/api/readiness",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    passport:
+                        document.getElementById(
+                            "passport"
+                        ).checked,
+
+                    employment:
+                        document.getElementById(
+                            "employment"
+                        ).checked,
+
+                    supporting:
+                        document.getElementById(
+                            "supporting"
+                        ).checked
+
+                })
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    result.innerHTML =
+
+        data.items.map(
+            function (item) {
+
+                return `
+
+                    <div class="check-row">
+
+                        <span>
+                            ${escapeHtml(
+                                item.name
+                            )}
+                        </span>
+
+                        <strong class="${
+                            item.ok
+                            ? "ok"
+                            : "warn"
+                        }">
+
+                            ${
+                                item.ok
+                                ? "✓"
+                                : "⚠"
+                            }
+
+                            ${escapeHtml(
+                                item.status
+                            )}
+
+                        </strong>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("")
+
+        +
+
+        `
+
+        <div class="alert alert-light mt-3">
+
+            ${escapeHtml(
+                data.message
+            )}
+
+        </div>
+
+
+        <a
+            class="btn btn-outline-dark"
+            href="/credential"
+        >
+
+            View demonstration credential →
+
+        </a>
+
+        `;
+
+};
+
+</script>
+
+{% endblock %}

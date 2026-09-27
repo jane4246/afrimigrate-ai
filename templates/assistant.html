@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Migration Assistant · AfriMigrate AI
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            RESPONSIBLE AI
+        </div>
+
+        <h1>
+            AI Migration Assistant
+        </h1>
+
+        <p>
+            Ask a migration-documentation question and receive
+            guidance from the controlled demonstration knowledge base.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+
+        <div class="col-lg-4">
+
+            <div class="panel">
+
+                <h5>
+                    Journey profile
+                </h5>
+
+
+                <label>
+                    Nationality
+                </label>
+
+                <select
+                    id="nationality"
+                    class="form-select mb-3"
+                >
+
+                    <option>Uganda</option>
+                    <option>Tanzania</option>
+                    <option>Rwanda</option>
+                    <option>Kenya</option>
+
+                </select>
+
+
+                <label>
+                    Destination
+                </label>
+
+                <select
+                    id="destination"
+                    class="form-select mb-3"
+                >
+
+                    <option>Kenya</option>
+                    <option>Uganda</option>
+                    <option>Tanzania</option>
+                    <option>Rwanda</option>
+
+                </select>
+
+
+                <label>
+                    Purpose
+                </label>
+
+                <select
+                    id="purpose"
+                    class="form-select mb-3"
+                >
+
+                    <option>Employment</option>
+                    <option>Study</option>
+                    <option>General</option>
+
+                </select>
+
+
+                <button
+                    id="quickAsk"
+                    class="btn btn-primary w-100"
+                >
+                    Generate guidance
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-8">
+
+            <div class="panel assistant-panel">
+
+                <div
+                    id="chat"
+                    class="chat-box"
+                >
+
+                    <div class="ai-message">
+
+                        Hello. I can provide demonstration guidance
+                        based on the selected journey profile.
+
+                        Ask me a migration-documentation question.
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group mt-3">
+
+                    <input
+                        id="question"
+                        class="form-control"
+                        placeholder="e.g. What documents should I prepare?"
+                    >
+
+                    <button
+                        id="ask"
+                        class="btn btn-dark"
+                    >
+                        Ask AI
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="sourceCard"
+                    class="source-card mt-3 d-none"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+async function askAI() {
+
+    const question =
+        document.getElementById("question").value;
+
+    const nationality =
+        document.getElementById("nationality").value;
+
+    const destination =
+        document.getElementById("destination").value;
+
+    const purpose =
+        document.getElementById("purpose").value;
+
+
+    const response = await fetch(
+        "/api/assistant",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            body: JSON.stringify({
+
+                nationality: nationality,
+
+                destination: destination,
+
+                purpose: purpose,
+
+                question: question
+
+            })
+        }
+    );
+
+
+    const data =
+        await response.json();
+
+
+    const chat =
+        document.getElementById("chat");
+
+
+    chat.innerHTML += `
+
+        <div class="user-message">
+
+            ${escapeHtml(
+                question || "Generate guidance"
+            )}
+
+        </div>
+
+
+        <div class="ai-message">
+
+            ${escapeHtml(
+                data.answer
+            )}
+
+        </div>
+
+    `;
+
+
+    const sourceCard =
+        document.getElementById(
+            "sourceCard"
+        );
+
+
+    sourceCard.classList.remove(
+        "d-none"
+    );
+
+
+    sourceCard.innerHTML = `
+
+        <b>
+            Traceability
+        </b>
+
+        <br>
+
+        Source:
+        ${escapeHtml(data.source)}
+
+        <br>
+
+        Last updated:
+        ${escapeHtml(data.updated)}
+
+        <br>
+
+        Confidence:
+        ${escapeHtml(data.confidence)}
+
+        <br>
+
+        Human verification:
+        ${escapeHtml(data.human)}
+
+    `;
+
+
+    document.getElementById(
+        "question"
+    ).value = "";
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+}
+
+
+document.getElementById(
+    "ask"
+).onclick = askAI;
+
+
+document.getElementById(
+    "quickAsk"
+).onclick = askAI;
+
+</script>
+
+{% endblock %}

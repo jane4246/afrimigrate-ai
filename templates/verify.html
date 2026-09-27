@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}
+Verification Result · AfriMigrate AI
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+
+{% if credential %}
+
+
+    <div class="verification valid mx-auto max-panel">
+
+
+        <div class="big-check">
+            ✓
+        </div>
+
+
+        <div class="eyebrow mt-4">
+            TRUSTED DIGITAL VERIFICATION
+        </div>
+
+
+        <h1>
+            Credential verified
+        </h1>
+
+
+        <p class="lead">
+
+            Synthetic demonstration verification for
+
+            <b>
+                {{ credential_id }}
+            </b>
+
+        </p>
+
+
+        <div class="verify-grid">
+
+
+            <span>
+                Status
+            </span>
+
+            <b>
+                {{ credential.status }}
+            </b>
+
+
+            <span>
+                Identity
+            </span>
+
+            <b>
+                {{ credential.identity }}
+            </b>
+
+
+            <span>
+                Country
+            </span>
+
+            <b>
+                {{ credential.country }}
+            </b>
+
+
+            <span>
+                Purpose
+            </span>
+
+            <b>
+                {{ credential.purpose }}
+            </b>
+
+
+            <span>
+                Valid until
+            </span>
+
+            <b>
+                {{ credential.valid_until }}
+            </b>
+
+        </div>
+
+
+        <hr class="my-4">
+
+
+        <b>
+            🔐 Sensitive personal information withheld.
+        </b>
+
+
+        <p class="small text-secondary mt-2">
+
+            This verification result is generated from the
+            AfriMigrate synthetic demonstration registry.
+
+        </p>
+
+    </div>
+
+
+{% else %}
+
+
+    <div class="alert alert-warning mx-auto max-panel">
+
+        <h4>
+            Credential not found
+        </h4>
+
+        <p>
+            This reference is not present in the
+            synthetic demonstration registry.
+        </p>
+
+        <a
+            href="{{ url_for('credential') }}"
+            class="btn btn-outline-dark"
+        >
+            View demonstration credential
+        </a>
+
+    </div>
+
+
+{% endif %}
+
+
+</div>
+
+{% endblock %}

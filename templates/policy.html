@@ -1,0 +1,389 @@
+{% extends "base.html" %}
+
+{% block title %}
+Policy Intelligence · AfriMigrate AI
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            POLICY & GOVERNANCE
+        </div>
+
+        <h1>
+            Policy Intelligence
+        </h1>
+
+        <p>
+            Aggregated synthetic data demonstrating how
+            AI-assisted analysis could support migration
+            service improvement without exposing individual identities.
+        </p>
+
+    </div>
+
+
+    <!-- METRICS -->
+
+    <div class="row g-3 mb-4">
+
+
+        <div class="col-md-4">
+
+            <div class="metric">
+
+                <span>
+                    Applications analyzed
+                </span>
+
+                <b>
+                    12,450
+                </b>
+
+                <small>
+                    synthetic demonstration records
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="metric">
+
+                <span>
+                    Top documentation issue
+                </span>
+
+                <b>
+                    {{ issues[0][0] if issues else "—" }}
+                </b>
+
+                <small>
+                    within this demonstration dataset
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="metric">
+
+                <span>
+                    Countries represented
+                </span>
+
+                <b>
+                    {{ countries|length }}
+                </b>
+
+                <small>
+                    demonstration only
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHARTS -->
+
+    <div class="row g-4">
+
+
+        <div class="col-lg-6">
+
+            <div class="panel">
+
+                <h5>
+                    Documentation issues
+                </h5>
+
+                <p class="small text-secondary">
+                    Distribution within the synthetic demonstration dataset.
+                </p>
+
+                <canvas
+                    id="issueChart"
+                ></canvas>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-6">
+
+            <div class="panel">
+
+                <h5>
+                    Applications by country
+                </h5>
+
+                <p class="small text-secondary">
+                    Synthetic records used for demonstration.
+                </p>
+
+                <canvas
+                    id="countryChart"
+                ></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- AI INSIGHT -->
+
+    <div class="insight mt-4">
+
+        <div class="eyebrow">
+            DEMONSTRATION AI INSIGHT
+        </div>
+
+        <h4>
+            Service bottleneck signal
+        </h4>
+
+        <p>
+
+            The demonstration dataset shows employment
+            documentation as the most frequent recorded issue.
+
+            A production system could use similar aggregated
+            signals to support clearer guidance, service
+            improvement and resource planning.
+
+        </p>
+
+        <small>
+
+            Interpretation is illustrative and is not a
+            statement about real migration populations.
+
+        </small>
+
+    </div>
+
+
+    <!-- GOVERNANCE MESSAGE -->
+
+    <div class="panel mt-4">
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <h5>
+                    No individual profiling
+                </h5>
+
+                <p class="text-secondary">
+
+                    Policy analytics are designed around
+                    aggregated information rather than
+                    exposing individual migrant records.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <h5>
+                    Evidence for service improvement
+                </h5>
+
+                <p class="text-secondary">
+
+                    Recurring documentation problems can
+                    reveal where public guidance or
+                    application processes need improvement.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <h5>
+                    Human policy oversight
+                </h5>
+
+                <p class="text-secondary">
+
+                    AI provides analytical signals;
+                    authorized institutions remain responsible
+                    for policy decisions.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+const issueLabels =
+    {{ issues|map(attribute=0)|list|tojson }};
+
+const issueValues =
+    {{ issues|map(attribute=1)|list|tojson }};
+
+
+const countryLabels =
+    {{ countries|map(attribute=0)|list|tojson }};
+
+const countryValues =
+    {{ countries|map(attribute=1)|list|tojson }};
+
+
+new Chart(
+
+    document.getElementById(
+        "issueChart"
+    ),
+
+    {
+
+        type: "doughnut",
+
+        data: {
+
+            labels:
+                issueLabels,
+
+            datasets: [
+
+                {
+
+                    data:
+                        issueValues
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+
+                    position:
+                        "bottom"
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
+
+
+new Chart(
+
+    document.getElementById(
+        "countryChart"
+    ),
+
+    {
+
+        type: "bar",
+
+        data: {
+
+            labels:
+                countryLabels,
+
+            datasets: [
+
+                {
+
+                    label:
+                        "Applications",
+
+                    data:
+                        countryValues
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            scales: {
+
+                y: {
+
+                    beginAtZero:
+                        true,
+
+                    ticks: {
+
+                        precision:
+                            0
+
+                    }
+
+                }
+
+            },
+
+            plugins: {
+
+                legend: {
+
+                    display:
+                        false
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
+
+</script>
+
+{% endblock %}

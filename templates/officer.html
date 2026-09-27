@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}
+Officer Verification · AfriMigrate AI
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            AUTHORIZED OFFICER
+        </div>
+
+        <h1>
+            Credential Verification
+        </h1>
+
+        <p>
+            Enter a demonstration credential reference.
+            In a production deployment, an authorized officer
+            could use a secure verification interface or QR scan.
+        </p>
+
+    </div>
+
+
+    <div class="panel mx-auto max-panel">
+
+        <label>
+            Credential / Reference ID
+        </label>
+
+
+        <div class="input-group mt-2">
+
+            <input
+                id="cred"
+                class="form-control"
+                value="AFM-KE-2026-000184"
+            >
+
+
+            <button
+                id="verify"
+                class="btn btn-primary"
+            >
+                Verify
+            </button>
+
+        </div>
+
+
+        <div
+            id="verification"
+            class="mt-4"
+        ></div>
+
+
+        <div class="privacy-callout mt-4">
+
+            <b>
+                🔐 Privacy Lens
+            </b>
+
+            <br>
+
+            Only information necessary for this verification
+            task is displayed. Full identity records are not exposed.
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+document.getElementById(
+    "verify"
+).onclick = async function () {
+
+
+    const credential =
+        document.getElementById(
+            "cred"
+        ).value;
+
+
+    const response =
+        await fetch(
+            "/api/verify",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    credential_id:
+                        credential
+
+                })
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    const box =
+        document.getElementById(
+            "verification"
+        );
+
+
+    if (!data.found) {
+
+        box.innerHTML = `
+
+            <div class="alert alert-danger">
+
+                ${escapeHtml(
+                    data.message
+                )}
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    box.innerHTML = `
+
+        <div class="verification ${
+            data.status === "Valid"
+            ? "valid"
+            : "pending"
+        }">
+
+
+            <div class="big-check">
+
+                ${
+                    data.status === "Valid"
+                    ? "✓"
+                    : "!"
+                }
+
+            </div>
+
+
+            <h3>
+
+                Credential
+                ${escapeHtml(
+                    data.status
+                )}
+
+            </h3>
+
+
+            <div class="verify-grid">
+
+
+                <span>
+                    Credential
+                </span>
+
+                <b>
+                    ${escapeHtml(
+                        data.credential_id
+                    )}
+                </b>
+
+
+                <span>
+                    Identity
+                </span>
+
+                <b>
+                    ${escapeHtml(
+                        data.identity
+                    )}
+                </b>
+
+
+                <span>
+                    Country
+                </span>
+
+                <b>
+                    ${escapeHtml(
+                        data.country
+                    )}
+                </b>
+
+
+                <span>
+                    Purpose
+                </span>
+
+                <b>
+                    ${escapeHtml(
+                        data.purpose
+                    )}
+                </b>
+
+
+                <span>
+                    Valid until
+                </span>
+
+                <b>
+                    ${escapeHtml(
+                        data.valid_until
+                    )}
+                </b>
+
+            </div>
+
+
+            <p class="mt-3 mb-0">
+
+                Sensitive personal information withheld.
+
+            </p>
+
+        </div>
+
+    `;
+
+};
+
+</script>
+
+{% endblock %}
